@@ -10,3 +10,6 @@
 * [Manage Notification](manage-notification-4.md)
 * [Manage Notification](manage-notification-5.md)
 * [Manage Notification](manage-notification-6.md)
+* [Approval Policy](approval-policy.md)
+* [Approval Policy](approval-policy-1.md)
+* [Approval Policy](approval-policy-2.md)
