@@ -77,31 +77,34 @@ Users need to have super-admin permission to apply an approval policy.
 
     ![Figure 10: Choosing Scope](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/select-approval-scope.jpg)
 4. Under **Apply to**, you get the following options to choose from:
-   *   **Specific Criteria** - Select this option to apply your policy to specific environment of specific applications.
+   *   **Specific Criteria** - Select this option to apply your policy to specific environment of specific applications.\
 
-       **A. If scope was deployment**:
+
+       **Example: When deployment is the selected scope**:
 
        ![Figure 11a: Specific Criteria for 'Deployment' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/specific-criteria-deployment.gif)
 
-       **B. If scope was configuration change**:
+       **Example: When configuration change is the selected scope**:
 
        ![Figure 11b: Specific Criteria for 'Configuration Change' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/specific-criteria-config.gif)
-   *   **By match criteria** - Select this option to use a combination of filters to create a criteria. Your policy will only apply to target pipelines/configurations fulfulling your criteria (including existing and future ones). (Optional) You may also write a note for your other team members to understand the intent and context of your policy.
+   *   **By match criteria** - Select this option to use a combination of filters to create a criteria. Your policy will only apply to target pipelines/configurations fulfulling your criteria (including existing and future ones). (Optional) You may also write a note for your other team members to understand the intent and context of your policy.\
 
-       **A. If scope was deployment**:
+
+       **Example: When deployment is the selected scope**:
 
        ![Figure 12a: Match Criteria for 'Deployment' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/match-criteria-approval.gif)
 
-       **B. If scope was configuration change**:
+       **Example: When configuration change is the selected scope**:
 
        ![Figure 12b: Match Criteria for 'Configuration Change' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/match-criteria-config.gif)
-   *   **Global** - Select this option to apply your chosen policies to every deployment pipeline or configurations (existing and future) of all applications in all clusters.
+   *   **Global** - Select this option to apply your chosen policies to every deployment pipeline or configurations (existing and future) of all applications in all clusters.\
 
-       **A. If scope was deployment**:
+
+       **Example: When deployment is the selected scope**:
 
        ![Figure 13a: Global Scope for 'Deployment' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/global-deployment.jpg)
 
-       **B. If scope was configuration change**:
+       **Example: When configuration change is the selected scope**:
 
        ![Figure 13b: Global Scope for 'Configuration Change' Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/global-approval-config.jpg)
 5. Click **Save Changes**.
@@ -110,10 +113,14 @@ Users need to have super-admin permission to apply an approval policy.
 
 ## Results
 
-Since we created a policy that blocks the deployment of a banking application unless there are 2 approvals, no user can trigger the deployment unless the images are approved by the approvers mentioned in the policy. Only users having approver permissions can approve the request.
+Since we created a policy that blocks the deployment of a banking application unless there are 2 approvals, no user can trigger the deployment unless the images are approved.
 
-![Figure 14a: Request Approval for Deployment](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/request-approval.gif)
+1.  The user first requests for an approval of the intended image.
 
-![Figure 14b: User with Approver Permissions Granting Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/grant-approval.gif)
+    ![Figure 14: Request Approval for Deployment](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/request-approval.gif)
+2.  Only those with approver permissions can then approve the request.
 
-![Figure 14c: Deployment of Approved Image](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/deploy-approved-image.gif)
+    ![Figure 15: User with Approver Permissions Granting Approval](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/grant-approval.gif)
+3.  The user then proceeds to deploy the approved image.
+
+    ![Figure 16: Deployment of Approved Image](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/approval-policy/deploy-approved-image.gif)

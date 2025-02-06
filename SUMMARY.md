@@ -1,15 +1,4 @@
 # Table of contents
 
-* [Deployment Charts](README.md)
-* [Page 1](page-1.md)
-* [Manage Notification](manage-notification.md)
-* [Manage Notification](manage-notification-1.md)
-* [Page 2](page-2.md)
-* [Manage Notification](manage-notification-2.md)
-* [Manage Notification](manage-notification-3.md)
-* [Manage Notification](manage-notification-4.md)
-* [Manage Notification](manage-notification-5.md)
-* [Manage Notification](manage-notification-6.md)
+* [Tags Policy](README.md)
 * [Approval Policy](approval-policy.md)
-* [Approval Policy](approval-policy-1.md)
-* [Approval Policy](approval-policy-2.md)

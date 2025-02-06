@@ -1,213 +1,157 @@
-# Deployment Charts
+# Tags Policy
 
-Devtron includes predefined helm charts that cover the majority of use cases. For any use case not addressed by the default helm charts, you can upload your own helm chart and use it as a custom chart in Devtron.
+## Introduction [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
 
-* Who can upload a custom chart - Super admins
-* Who can use the custom chart - All users
+Tags are key-value pairs containing metadata that helps in identifying and categorizing Devtron apps. For example, you can have a tag named _`Business-Unit`_ with a value assigned during application creation (or later, if mandatory).
 
-> A super admin can upload multiple versions of a custom helm chart.
+The **Tags Policy** feature lets you create tags for applications, and enforce deployment-specific rules if needed. It also allows you to propagate these tags as labels to the Kubernetes resources associated with the application.
 
-![Figure 1: Deployment Charts](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/gc-deployment-charts.jpg)
+![Figure 1: How Tags Policy Works](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag.gif)
 
-## Prerequisites
-
-1. A valid helm chart, which contains `Chart.yaml` file with name and version fields.
-2. Image descriptor template file `.image_descriptor_template.json`.
-3. Custom chart packaged in the `*.tgz` format.
-
-### 1. How to create a helm chart
-
-You can use the following command to create the Helm chart:
-
-```bash
-helm create my-custom-chart
-```
-
-> Note: `Chart.yaml` is the metadata file that gets created when you create a [helm chart](https://helm.sh/docs/helm/helm_create/).
-
-| Field         | Description                                                                                |
-| ------------- | ------------------------------------------------------------------------------------------ |
-| `Name`        | Name of the helm chart (Required).                                                         |
-| `Version`     | This is the chart version. Update this value for each new version of the chart (Required). |
-| `Description` | Description of the chart (Optional).                                                       |
-
-Please see the following example:
-
-![Chart.yaml file](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/chart-yaml-file.png)
-
-### 2. Create the image descriptor template file `.image_descriptor_template.json`
-
-It's a GO template file that should produce a valid `JSON` file upon rendering. This file is passed as the last argument in `helm install -f myvalues.yaml -f override.yaml` command.
-
-Place the `.image_descriptor_template.json` file in the root directory of your chart.
-
-You can use the following variables in the helm template (all the placeholders are optional):
-
-> The values from the CD deployment pipeline are injected at the placeholder specified in the `.image_descriptor_template.json` template file.
-
-```bash
-{
-    "server": {
-        "deployment": {
-            "image_tag": "{{.Tag}}",
-            "image": "{{.Name}}"
-        }
-    },
-    "pipelineName": "{{.PipelineName}}",
-    "releaseVersion": "{{.ReleaseVersion}}",
-    "deploymentType": "{{.DeploymentType}}",
-    "app": "{{.App}}",
-    "env": "{{.Env}}",
-    "appMetrics": {{.AppMetrics}}
-}
-```
-
-| Field              | Description                                                                           |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| **image\_tag**     | The build image tag                                                                   |
-| **image**          | Repository name                                                                       |
-| **pipelineName**   | The CD pipeline name created in Devtron                                               |
-| **releaseVersion** | Devtron's internal release number                                                     |
-| **deploymentType** | Deployment strategy used in the pipeline                                              |
-| **app**            | Application's ID within the Devtron ecosystem                                         |
-| **env**            | Environment used to deploy the chart                                                  |
-| **appMetrics**     | For the App metrics UI feature to be effective, include the `appMetrics` placeholder. |
-
-> **For example**:
->
-> To create a template file to allow Devtron to only render the repository name and the tag from the CI/CD pipeline that you created, edit the `.image_descriptor_template.json` file as:
->
-> ```bash
-> {
->     "image": {
->           "repository": "{{.Name}}",
->           "tag": "{{.Tag}}"
->     }
-> }
-> ```
-
-### 3. Package the custom chart in the `*.tgz` format
-
-> Before you begin, ensure that your helm chart includes both `Chart.yaml` (with `name` and `version` fields) and `.image_descriptor_template.json` files.
-
-The helm chart to be uploaded must be packaged as a versioned archive file in the format `<helm-chart-name>-vx.x.x.tgz`.
-
-```
-helm package my-custom-chart
-```
-
-The above command will create a `my-custom-chart-0.1.0.tgz` file.
-
-***
-
-## Uploading a Custom Chart
-
-> A custom chart can only be uploaded by a super admin.
-
-* On the Devtron dashboard, select **Global Configurations > Custom charts**.
-* Select **Import Chart**.
-* **Select tar.gz file...** and upload the packaged custom chart in the `*.tgz` format.
-
-![Selecting custom chart](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/Chart+pre-requisites.png)
-
-The chart is being uploaded and validated. You may also **Cancel upload** if required.
-
-![Uploading custom chart](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/List+-+Empty-4.png)
-
-### Validation
-
-The uploaded archive will be validated against:
-
-* Supported archive template should be in `*.tgz` format.
-* Content of `values.yaml` should be there in `app-values.yaml` file.
-* `release-values.yaml` file is required.
-* ConfigMap/Secret template should be same as that of our [reference chart](https://github.com/devtron-labs/devtron/tree/main/scripts/devtron-reference-helm-charts/reference-chart_4-14-0).
-* `Chart.yaml` must include the name and the version number.
-* `..image_descriptor_template.json` file should be present and the field format must match the format listed in the image builder template section.
-
-The following are the validation results:
-
-| Validation status        | Description                                                              | User action                                                                                                                                                                                                                                  |
-| ------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Success**              | The files uploaded are validated.                                        | Enter a description for the chart and select **Save** or **Cancel upload**.                                                                                                                                                                  |
-| **Unsupported template** | The archive file do not match the [required template](broken-reference). | **Upload another chart** or **Cancel upload**.                                                                                                                                                                                               |
-| **New version detected** | You are uploading a newer version of an existing chart                   | Enter a **Description** and select **Save** to continue uploading, or **Cancel upload**.                                                                                                                                                     |
-| **Already exists**       | There already exists a chart with the same version.                      | <ul><li>Edit the version and re-upload the same chart using <strong>Upload another chart</strong>.</li><li>Upload a new chart with a new name using <strong>Upload another chart</strong>.</li><li><strong>Cancel upload</strong>.</li></ul> |
-
-![Chart validated](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/List+-+Empty-2.png)
-
-![Unsupported template](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/List+-+Empty.png)
-
-![New version detected](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/List+-+Empty-3.png)
-
-![Already exists](https://devtron-public-asset.s3.us-east-2.amazonaws.com/custom-charts/List+-+Empty-1.png)
-
-***
-
-## Viewing Custom Charts
-
-> All users can view the custom charts.
-
-To view the list of available custom charts, go to **Global Configurations → Deployment Charts** page.
-
-* The charts can be searched with their name, version, or description.
-* New [custom charts can be uploaded](broken-reference) by selecting **Upload chart**.
-
-![Custom charts](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/upload-custom-chart.jpg)
-
-***
-
-## Using Custom Chart in Application
-
-The custom charts can be used from the Deployment Template section.
-
-> **Info**:
->
-> The deployment strategy for a custom chart is fetched from the custom chart template and cannot be configured in the CD pipeline.
-
-***
-
-## Editing GUI Schema of Deployment Charts [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
+## Adding Tags
 
 {% hint style="warning" %}
 #### Who Can Perform This Action?
 
-Only superadmins can edit the GUI schema of deployment charts.
+Users need to have super-admin permission to add tags.
 {% endhint %}
+
+1.  Go to **Global Configurations** → **Tags Policy**.
+
+    ![Figure 2: Tags Policy](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/gc-tags-policy.jpg)
+2.  Click **+ Add Tag**.
+
+    ![Figure 3: 'Add Tag' Button](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/add-tags-gc.jpg)
+3.  **Suggested tags/Mandatory tags** - If you choose and create `Suggested tags`, they will appear as suggestions when adding tags to applications. However, if you create `Mandatory tags` and enforce deployment restrictions, the user must configure the tag for applications within the selected project.
+
+    ![Figure 4: Creating Suggested or Mandatory Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/suggested-mandatory.gif)
+4.  **Select Project(s)** - (Not available for `Suggested tags`) Select the projects whose applications will have the mandatory tags enforced. For all other projects, mandatory tags will appear just as a suggestion.
+
+    ![Figure 5: Selecting One or More Projects](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/select-projects.jpg)
+5.  **Tag Key** - Enter the key from the key-value pair (tag), e.g., _Business Unit_, _Team_, _Owner_.
+
+    ![Figure 6: Entering Tag Key](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/tag-key.gif)
+6.  **Value Choices** - Here, you can create a list of values for the key-value pair (tag). Users can choose one of your configured values.
+
+    ![Figure 7: Creating List of Choices](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/value-choices.gif)
+
+You may enable **Allow Custom Input** to give the user a choice to enter their own value if it is unavailable in the list. Or you may skip creating the list of choices altogether so that your user can enter their own value.
+
+7.  **Description** - Write a brief description explaining the significance of the tag.
+
+    ![Figure 8: Adding Description for the Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/tag-description.gif)
+8.  **Propagate Tag** - By default, tags assigned to applications in Devtron are not automatically propagated to Kubernetes resources as labels.
+
+    * Click the ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/donot-propagate.jpg) symbol on the left side of your tag to propagate a tag. The symbol turns dark to indicate that the tag propagation is enabled.
+    * To remove the tags from propagation, click the ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/propagate-dark.jpg) symbol again.
+
+    ![Figure 9a: Enabling/Disabling Tag Propagation](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/propagate-tag.gif)
+
+    \
+
+
+    ![Figure 9b: How Tag Propagation Works](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/inject-tags.jpg)
 
 {% hint style="info" %}
-#### Reference
+#### Changing Propagation in Suggested Tags vs. Mandatory Tags
 
-This section is an extension of Customize Basic GUI feature within **App Configuration** → **Base Deployment Template**. Refer the document to know more about the significance of having a customizable GUI schema for your deployment templates.
+**In suggested tags**: When you enable/disable tag propagation, users can still disable/enable it during app creation, ensuring its tags propagate to associated Kubernetes resources.
+
+**In mandatory tags**: When you enable/disable tag propagation, users do not get the option to change the propagation setting.
 {% endhint %}
 
-You can edit the GUI schema of both the deployment charts:
+9.  **Allow/Block Deployments** - (Not available for `Suggested tags`) Select the action to be taken if mandatory tags are not configured by the user in the intended projects:
 
-1. Charts provided by Devtron (_Deployment_, _Job & CronJob_, _Rollout Deployment_, and _StatefulSet_)
-2. Custom charts uploaded by you
+    * **Allow deployments** - Use this option if you want to allow the user to deploy an existing application where mandatory tags are not configured yet.
+    * **Block deployment stages of prod environments** - Use this option if you want to prevent the user from deploying an existing application to production environments, if mandatory tags are not configured.
+    * **Block deployment stages of non-prod enviroments** - Use this option if you want to prevent the user from deploying an existing application to non-production environments, if mandatory tags are not configured.
+    * **Block deployment stages of all environments** - This will prevent the user from deploying an existing application to all environments if mandatory tags are not configured.
 
-### Tutorial
+    ![Figure 10: Deciding Deployment Restrictions](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/allow-block.gif)
+10. (Optional) Click the **`+`** option to create multiple suggested tags or multiple mandatory tags in one go.
 
-{% embed url="https://www.youtube.com/watch?v=93tGIsM1qC8" %}
+    ![Figure 11: Adding More Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/add-more-tags.gif)
+11. Click **Save** to create the tag(s).
 
-### Steps
+***
 
-In this example, we will edit the Deployment chart type provided by Devtron.
+## Editing a Tag
 
-1.  Click the edit button next to the chart as shown below.
+{% hint style="warning" %}
+#### Who Can Perform This Action?
 
-    ![Edit GUI Schema Button](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/edit-chart-schema.jpg)
-2.  A GUI schema is available for you to edit in case of Devtron charts. In case of custom charts, you may have to define a GUI schema yourself. To create a GUI schema of your choice, you may use [RJSF JSON Schema Tool](https://rjsf-team.github.io/react-jsonschema-form/).
+Users need to have super-admin permission to edit tags.
+{% endhint %}
 
-    ![Editable Schema](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/gui-schema.jpg)
-3.  You may start editing the schema by excluding existing fields/objects or including more of them. Click the **Refer YAML** button to view all the supported fields.
+You can edit an existing tag key to do the following:
 
-    ![Refer YAML Button](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/refer-yaml.gif)
-4.  While editing the schema, you may use the **Preview GUI** option for a real-time preview of your changes.
+* Modify the tag key
+* Add/remove value choices
+* Tweak the description
+* Change deployment restrictions
+* Add or remove projects
+* Convert Tags from Suggested to Mandatory (or vice versa)
 
-    ![Preview GUI Button](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/preview-gui.gif)
-5.  Click **Save Changes**.
+Once done, click **Update** to apply the changes.
 
-    ![Save Changes](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/deployment-charts/save-changes.jpg)
+### Editing in Bulk
 
-Next, if you go to **App Configuration** → **Base Deployment Template**, you will be able to see the deployment template fields (in Basic GUI) as per your customized schema.
+You may use the checkboxes to add/remove projects from multiple tags at once as shown below.
+
+![Figure 12: Adding/Removing projects in Bulk](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/add-remove-projects.gif)
+
+***
+
+## Deleting a Tag
+
+{% hint style="warning" %}
+#### Who Can Perform This Action?
+
+Users need to have super-admin permission to delete tags.
+{% endhint %}
+
+You may delete a tag. If it's a 'Suggested Tag', it will no longer show up as a suggestion during new application creation. If it's a 'Mandatory Tag', the deployment rules (if any, associated with that tag) will no longer be enforced.
+
+However, this action will not delete the applied tag from existing applications.
+
+![Figure 13: Deleting a Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/delete-tag.gif)
+
+If you wish to delete multiple tags, you may use the checkboxes to select the tags and delete them from the floating widget as shown below.
+
+![Figure 14: Deleting Multiple Tags](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/bulk-delete-tags.gif)
+
+***
+
+## Results
+
+### Appearance of Mandatory Tags
+
+*   The mandatory tag appears after the user selects the project in the app creation page as shown below.
+
+    ![Figure 15: Mandatory Tag - App Creation Page](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag-result1.gif)
+*   For an existing application, the user can add it from the **Overview** page of the application.
+
+    ![Figure 16: Mandatory Tag - Overview Page](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag-overview.gif)
+*   In a project where mandatory tags are enabled, if the user does not provide values for the mandatory tags, the user cannot create an app in that project.
+
+    ![Figure 17: App creation not allowed](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag-result3.gif)
+
+### Appearance of Suggested Tags
+
+Users can see a dropdown list of your suggested tags while creating a new app or on the **Overview** page of an existing application.
+
+![Figure 18: Suggested Tags in Dropdown](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/suggested-tag-result1.gif)
+
+### Impact on Deployment Pipelines
+
+If an existing application belongs to a project where mandatory tags are enabled along with deployment restrictions, if the user does not provide values for the mandatory tags, they cannot deploy that app to the intended environment (check step 9 of [adding tags](broken-reference)).
+
+![Figure 19: Deployment Restriction](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/deployment-impact.gif)
+
+The same is true for auto-triggering deployment pipelines. A new image available after the build stage will not auto-trigger the deployment pipeline due to the missing mandatory tags.
+
+### Impact on Application Group
+
+Similarly, if deployment restrictions apply due to missing mandatory tags, users cannot deploy apps to the intended environment from the Application Group.
+
+![Figure 20: Deployment Restriction in Application Group](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/application-group-impact.gif)
