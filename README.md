@@ -93,9 +93,9 @@ You can edit an existing tag key to do the following:
 * Convert Tags from Suggested to Mandatory (or vice versa)
 * Enable/Disable the propagation of tags
 
-![Figure 12: Editing a Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/edit-tags.gif)
-
 Once done, click **Update** to apply the changes.
+
+![Figure 12: Editing a Tag](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/edit-tags.gif)
 
 ### Editing in Bulk
 
@@ -113,7 +113,7 @@ You may use the checkboxes to add/remove projects from multiple tags at once as 
 Users need to have super-admin permission to delete tags.
 {% endhint %}
 
-You may delete a tag. If it's a 'Suggested Tag', it will no longer show up as a suggestion during new application creation. If it's a 'Mandatory Tag', the deployment rules (if any, associated with that tag) will no longer be enforced.
+If you delete a 'Suggested Tag', it will no longer show up as a suggestion to your users while adding tags. If it's a 'Mandatory Tag', the deployment rules (if any, associated with that tag) will no longer be enforced.
 
 However, this action will not delete the applied tag from existing applications.
 
@@ -129,10 +129,10 @@ If you wish to delete multiple tags, you may use the checkboxes to select the ta
 
 ### Appearance of Mandatory Tags
 
-*   The mandatory tag appears after the user selects the project in the app creation page as shown below.
+*   The mandatory tag is available for users to configure after they select the project in the app creation page. It is marked by a red asterisk.
 
     ![Figure 16: Mandatory Tag - App Creation Page](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag-result1.gif)
-*   For an existing application, the user can add it from the **Overview** page of the application.
+*   For an existing application, users can configure it from the **Overview** page of the application.
 
     ![Figure 17: Mandatory Tag - Overview Page](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/mandatory-tag-overview.gif)
 *   In a project where mandatory tags are enabled, if the user does not provide values for the mandatory tags, the user cannot create an app in that project.
@@ -143,7 +143,7 @@ If you wish to delete multiple tags, you may use the checkboxes to select the ta
 
 Users can see a dropdown list of your suggested tags while creating a new app or on the **Overview** page of an existing application.
 
-![Figure 19: Suggested Tags in Dropdown](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/suggested-tag-result1.gif)
+![Figure 19: Suggested Tags in Dropdown](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/suggested-tag-result.gif)
 
 ### Impact on Deployment Pipelines
 
