@@ -50,15 +50,17 @@ You may enable **Allow Custom Input** to give the user a choice to enter their o
     ![Figure 9: Deciding Deployment Restrictions](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/allow-block.gif)
 9.  **Propagate Tag** - By default, tags assigned to applications in Devtron are not automatically propagated to Kubernetes resources as labels.
 
-    * Click the ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/donot-propagate.jpg) symbol on the left side of your tag to propagate a tag. The symbol turns dark to indicate that the tag propagation is enabled.
-    * To remove the tags from propagation, click the ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/propagate-dark.jpg) symbol again.
-
-    ![Figure 10a: Enabling/Disabling Tag Propagation](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/propagate-tag.gif)
+    ![Figure 10a: Propagating Tags](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/propagate-tag.gif)
 
     \
 
 
-    ![Figure 10b: How Tag Propagation Works](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/inject-tags.jpg)
+    ![Figure 10b: Enabling/Disabling Propagation](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/propagation-symbols.jpg)
+
+    \
+
+
+    ![Figure 10c: How Tag Propagation Works](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/inject-tags.jpg)
 
 {% hint style="info" %}
 #### Changing Propagation in Suggested Tags vs. Mandatory Tags
@@ -149,9 +151,9 @@ Users can see a dropdown list of your suggested tags while creating a new app or
 
 If an existing application belongs to a project where mandatory tags are enabled along with deployment restrictions, if the user does not provide values for the mandatory tags, they cannot deploy that app to the intended environment (check step 9 of [adding tags](broken-reference)).
 
-![Figure 20: Deployment Restriction](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/deployment-impact.gif)
-
 The same is true for auto-triggering deployment pipelines. A new image available after the build stage will not auto-trigger the deployment pipeline due to the missing mandatory tags.
+
+![Figure 20: Deployment Restriction](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/global-configurations/mandatory-tags/deployment-impact.gif)
 
 ### Impact on Application Group
 
