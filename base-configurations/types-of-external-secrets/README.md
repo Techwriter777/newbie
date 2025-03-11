@@ -1,0 +1,2 @@
+# Types of External Secrets
+
