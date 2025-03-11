@@ -14,6 +14,8 @@ You can define application behavior by providing information in the following se
 | `Show application metrics` | <p>You can enable <code>Show application metrics</code> to see your application's metrics-CPU Service Monitor usage, Memory Usage, Status, Throughput and Latency.<br>Refer Application Metrics for more detail.<br></p> |
 
 {% hint style="warning" %}
+#### Note
+
 Super-admins can lock keys in rollout deployment template to prevent non-super-admins from modifying those locked keys. Refer Lock Deployment Configuration to know more.
 {% endhint %}
 
@@ -86,7 +88,7 @@ It is a centralized storage, specific to k8s namespace where key-value pairs are
 
 It is a centralized storage, specific to k8s namespace where we can store the key-value pairs in plain text as well as in encrypted(`Base64`) form.
 
-![Figure 3: Secret](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/created-secret.gif)
+![Figure 3: Secret](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/created-secret.jpg)
 
 `IMP` All key-values of `Secret` and `CofigMap` will reflect to your application.
 

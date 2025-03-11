@@ -1,6 +1,6 @@
 # Google Secrets Manager
 
-{% hint style="info" %}
+{% hint style="warning" %}
 #### Prerequisite
 
 Install External Secret Operator (ESO).
@@ -10,31 +10,31 @@ To add secrets from **Google Secrets Manager**, follow the steps mentioned below
 
 1.  Go to Google cloud console and create a Service Account.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa.jpg)
+    ![Figure 1: Create Service Account](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa.jpg)
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa-create.jpg)
+    ![Figure 2: Service Account Creation](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa-create.jpg)
 2.  Assign roles to the service account.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa-roles.jpg)
+    ![Figure 3: Assign Service Account Roles](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-sa-roles.jpg)
 3.  Add and create a new key.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-key.jpg)
+    ![Figure 4a: Add Service Account Key](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-key.jpg)
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-key-create.jpg)
+    ![Figure 4b: Create Service Account Key](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/google-key-create.jpg)
 4.  Create a Kubernetes secret in the namespace in which the application is to be deployed using base64 encoded service account key.
 
     You can use devtron generic chart for this.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-auth-generic.jpg)
+    ![Figure 5: Create Kubernetes Secret](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-auth-generic.jpg)
 5.  After creating the generic secret, navigate to `Secrets` section of the application and click `Add Secret` to add a new secret.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/add-secrets.jpg)
+    ![Figure 6: Add New Secret](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/add-secrets.jpg)
 6.  Select `Google Secrets Manager` under `External Secret Operator` (ESO) from the dropdown of `Data type`.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-secret-manager-dropdown.jpg)
+    ![Figure 7: Select Google Secrets Manager](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-secret-manager-dropdown.jpg)
 7.  Configure secret.
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-es-configure.jpg)
+    ![Figure 8: Configure Secret Settings](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-es-configure.jpg)
 
     | Key                             | Description                                                                                                            |
     | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -44,5 +44,5 @@ To add secrets from **Google Secrets Manager**, follow the steps mentioned below
     | `secretKey`                     | Key name to store secret.                                                                                              |
     | `key`                           | GCP Secrets Manager secret name.                                                                                       |
 
-    ![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-secret.jpg)
+    ![Figure 9: Google Secret Example](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/secrets/gcp-secret.jpg)
 8. Save secret.
