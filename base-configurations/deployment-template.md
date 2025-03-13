@@ -4,14 +4,14 @@ In Devtron, a Deployment Template defines how your application runs by specifyin
 
 This guide covers how to:
 
-* [Select a Deployment Chart](broken-reference)
-* [Choose a Chart Version](broken-reference)
-* [Configure the Deployment Template](broken-reference)
-* [Enable Application Metrics](broken-reference)
-* [Perform a Dry Run](broken-reference)
-* [Extra: Edit a Protected Deployment Configuration](broken-reference) [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
+* Select a Deployment Chart
+* Choose a Chart Version
+* Configure the Deployment Template
+* Enable Application Metrics
+* Perform a Dry Run
+* Extra: Edit a Protected Deployment Configuration [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
 
-## Select a Deployment Chart Type
+### Select a Deployment Chart Type
 
 {% hint style="warning" %}
 #### Who Can Perform This Action?
@@ -47,7 +47,7 @@ After you select and save a chart type for a given application, you won't be abl
 
 ***
 
-## Choose a Chart Version
+### Choose a Chart Version
 
 {% hint style="warning" %}
 #### Who Can Perform This Action?
@@ -59,13 +59,13 @@ Devtron maintains multiple chart versions based on the features it support. Addi
 
 ![Figure 5: Accessing the README file](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/readme-version.gif)
 
-Once you [select a deployment chart](broken-reference), choose a chart version using which you wish to deploy your application. By default, the latest version of the helm chart is selected.
+Once you select a deployment chart, choose a chart version using which you wish to deploy your application. By default, the latest version of the helm chart is selected.
 
 ![Figure 6: Picking a Chart Version](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/chart-version.jpg)
 
 ***
 
-## Configure the Deployment Template
+### Configure the Deployment Template
 
 {% hint style="warning" %}
 #### Who Can Perform This Action?
@@ -75,10 +75,10 @@ Users need to have Admin role or above to configure a deployment template. Howev
 
 There are two ways of editing a deployment template:
 
-* [Using GUI](broken-reference)
-* [Using YAML](broken-reference)
+* Using GUI
+* Using YAML
 
-### Using GUI
+#### Using GUI
 
 If you are not an advanced user, you may use the simpler **GUI** section to configure your chosen deployment chart.
 
@@ -106,18 +106,18 @@ By default, the following fields are commonly available for you to modify in the
 | **Command**                               | Enable the `Command` to pass one or more command values (e.g., `/bin/sh -c "/app/custom-script.sh"`). By default, it is in the `disabled` state.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | **imagePullSecrets**                      | Provide secrets to authenticate and pull container images from a private registry.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
-If you wish to perform additional configurations, click the **Switch to Advanced** button or **YAML** button. Or [perform a dry run](broken-reference) before saving your configuration.
+If you wish to perform additional configurations, click the **Switch to Advanced** button or **YAML** button. Or perform a dry run before saving your configuration.
 
 ![Figure 8: Switch to Advanced (YAML Method)](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/yaml-switch.jpg)
 
-{% hint style="warning" %}
+{% hint style="info" %}
 #### Note
 
 * If you change any values in the **GUI**, then the corresponding values will change in **YAML** too.
 * Users who are not super-admins will land on **GUI** section when they visit **Deployment Template** page; whereas super-admins will land on **YAML** section. This is just a default behavior, they can still navigate to the other section if needed.
 {% endhint %}
 
-#### Customize the GUI [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
+**Customize the GUI** [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
 
 {% hint style="warning" %}
 #### Who Can Perform This Action?
@@ -125,16 +125,18 @@ If you wish to perform additional configurations, click the **Switch to Advanced
 Superadmin can define and apply custom deployment schema.
 {% endhint %}
 
-By default, the **GUI** section comes with multiple predefined fields as seen earlier [in the table](broken-reference). However, if you wish to display a different set of fields to your team, you can modify the whole section as per your requirement.
+By default, the **GUI** section comes with multiple predefined fields as seen earlier in the table. However, if you wish to display a different set of fields to your team, you can modify the whole section as per your requirement.
 
 This is useful in scenarios where:
 
-* Your team members find it difficult to understand and edit the [YAML](broken-reference) section.
+* Your team members find it difficult to understand and edit the YAML section.
 * You frequently edit certain fields in **YAML**, which you expect to remain easily accessible in **GUI** section.
 * You don't require some fields in **GUI** section.
 * You need the autonomy to keep the GUI unique for applications/clusters/environments/charts, or display the same GUI everywhere.
 
 {% hint style="info" %}
+#### Note
+
 There are two ways you can customize the GUI, use any one of the following:
 
 1. From Deployment Charts section
@@ -220,7 +222,7 @@ PUT {{DEVTRON_BASEURL}}/orchestrator/deployment/template/schema
     | 5        | CLUSTER        | Applies across all applications and environments within a specific cluster |
     | 6        | GLOBAL         | Universally applies if no other more specific schemas are defined          |
 
-### Using YAML
+#### Using YAML
 
 If you are an advanced user wishing to perform additional configurations, you may switch to **YAML** for modifications.
 
@@ -235,11 +237,11 @@ Refer the respective templates to view the YAML details.
 * Job & CronJob
 * StatefulSet
 
-Before saving your configuration in YAML, make sure to [perform a dry run](broken-reference).
+Before saving your configuration in YAML, make sure to perform a dry run.
 
 ***
 
-## Enable Application Metrics
+### Enable Application Metrics
 
 The availability of application metrics depends on the selected chart type and version. If supported, you can view key performance metrics such as:
 
@@ -264,7 +266,7 @@ Enabling application metrics adds a sidecar container to your main container, wh
 
 ***
 
-## Perform a Dry Run
+### Perform a Dry Run
 
 Before saving your configured deployment template, you can use the **Dry Run** option (as shown below) to preview the final Kubernetes manifests.
 
@@ -276,9 +278,11 @@ Your configurations will appear in the left pane, while the right pane will disp
 
 ***
 
-## Edit a Protected Deployment Template [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
+### Edit a Protected Deployment Template [![](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/elements/EnterpriseTag.svg)](https://devtron.ai/pricing)
 
 {% hint style="info" %}
+#### Who Can Perform This Action?
+
 Only a super-admin, manager, and admin can edit the configuration values.
 {% endhint %}
 
@@ -286,7 +290,7 @@ Any changes made to the deployment template will require approval if an approval
 
 ![Figure 13: Checking Protected Configuration](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/protected-dt.jpg)
 
-### Request Approval for Changes
+#### Request Approval for Changes
 
 Let's assume you are the application admin and your deployment template in **Base Configurations** is protected from edits.
 
@@ -310,7 +314,7 @@ You cannot modify locked keys in deployment template unless you are a super-admi
 
     Since we are proposing the changes immediately, click **Propose Changes**.
 
-    ![Figure 16: Proposing Changes](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/propose-changes-v2.jpg)
+    ![Figure 16: Proposing Changes](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/propose-changes-v2.gif)
 4.  You can also view the approval status if you wish.
 
     ![Figure 17: Viewing the Approval Status](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/approval-status.jpg)
@@ -325,9 +329,11 @@ Only one draft can exist at time and you cannot create multiple drafts. In the t
 
 ![Figure 18: Discarding the Draft](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/discard-draft.jpg)
 
-### Grant Approval for Changes
+#### Grant Approval for Changes
 
 {% hint style="info" %}
+#### Who Can Perform This Action?
+
 Only a different super-admin user or someone (who is not amongst the editors of the draft), having `Configuration approver` access, can approve the changes made to the deployment configuration.
 {% endhint %}
 
