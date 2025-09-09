@@ -15,3 +15,6 @@
     * [Google Secrets Manager](base-configurations/types-of-external-secrets/google-secrets-manager.md)
     * [HashiCorp Vault](base-configurations/types-of-external-secrets/hashicorp-vault.md)
 * [Environment Overrides](environment-overrides.md)
+* [Page 1](page-1.md)
+* [Page 2](page-2.md)
+* [Page 3](page-3.md)
