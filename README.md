@@ -1,9 +1,50 @@
-# Base Configurations
+# Install Devtron
 
-Base Configurations help you choose Deployment Template for defining application specifications, create ConfigMaps for managing non-sensitive data, and create Secrets for securely handling sensitive information. In Devtron, these are core settings that dictate the application's behavior.
+### Introduction
 
-* Deployment Template
-* ConfigMaps
-* Secrets
+Devtron can be installed on any Kubernetes cluster of your choice.&#x20;
 
-![Base Configurations of Application](https://devtron-public-asset.s3.us-east-2.amazonaws.com/images/creating-application/deployment-template/base-config-main.jpg)
+You can choose between **Devtron OSS** (open-source, free) and **Devtron Enterprise (Freemium)**, which unlocks enterprise features at no cost (limited to 1 additional cluster).
+
+| Versions                              | Description                                                                     |
+| ------------------------------------- | ------------------------------------------------------------------------------- |
+| Install Devtron OSS                   | OSS edition, with optional CI/CD and GitOps modules                             |
+| Install Devtron Enterprise (Freemium) | OSS + enterprise-only features with a free license key for 1 additional cluster |
+
+***
+
+### Additional Resources
+
+<details>
+
+<summary>Want to install Devtron in an Air-gapped environment?</summary>
+
+See the full guide here: Install Devtron in Air-gapped Environment
+
+</details>
+
+<details>
+
+<summary>Want to explore Devtron without installing on your cluster?</summary>
+
+* Try [Devtron Sandbox](https://preview.devtron.ai)
+* Try Devtron Kubernetes Desktop Client
+
+</details>
+
+<details>
+
+<summary>Need help or demo?</summary>
+
+* [Discord community for support](https://discord.gg/jsRG5qx2gp)[![Join Discord](https://img.shields.io/badge/Join%20us%20on-Discord-e01563.svg)](https://discord.gg/jsRG5qx2gp).
+* [Book time with our team](https://devtron.ai/demo)
+
+</details>
+
+<details>
+
+<summary>Looking for advanced setup?</summary>
+
+See Additional Installation Resources for production infra recommendations, advanced configs, air-gapped installs, backup, and more.
+
+</details>
